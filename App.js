@@ -5,18 +5,7 @@ import { NavBar } from './src/Navbar';
 import { Todo } from './src/Todo';
 
 export default function App() {
-  const [todos, setTodos] = useState([
-    {id: '1', title: 1},
-    {id: '2', title: 2},
-    {id: '3', title: 2},
-    {id: '4', title: 2},
-    {id: '5', title: 2},
-    {id: '6', title: 2},
-    {id: '7', title: 2},
-    {id: '8', title: 2},
-    {id: '9', title: 2},
-    {id: '10', title: 'last'},
-  ]);
+  const [todos, setTodos] = useState([]);
 
   const addTodo = (title) => {
     const newTodo = {
@@ -24,6 +13,10 @@ export default function App() {
       title
     }
     setTodos((prev) => [...prev, newTodo])
+  }
+
+  const removeTodo = (id) => {
+    setTodos((prev) => prev.filter((el) => el.id !== id))
   }
 
   return (
@@ -34,7 +27,7 @@ export default function App() {
         <AddTodo onSubmit={addTodo}/>
         <FlatList
           data={todos}
-          renderItem={({item}) => <Todo todo={item}/>}
+          renderItem={({item}) => <Todo todo={item} onRemove={removeTodo}/>}
           keyExtractor={item => item.id}
         />
         
